@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+    <style>
+        /* Hide the default chatbot button */
+        .vf-floating-button {
+            display: none;
+        }
+
+        /* Style for the UK flag button */
+        .icon-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .icon-button img {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- UK Flag button -->
+    <button class="icon-button" onclick="openChat()">
+        <img src="https://image.similarpng.com/very-thumbnail/2020/06/United-Kingdom-flag-icon-on-transparent-background-PNG.png" alt="UK Flag">
+    </button>
+
+    <script type="text/javascript">
+        // Load Voiceflow Chat Widget
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '66a0c7c261762753caa83435' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production'
+                });
+            }
+            v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; 
+            v.type = "text/javascript"; 
+            s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+
+        // Function to open the chat window when the flag button is clicked
+        function openChat() {
+            if (window.voiceflow && window.voiceflow.chat) {
+                window.voiceflow.chat.open();
+
+                // Try to click the "Start New Chat" button after 3 seconds
+                setTimeout(function() {
+                    try {
+                        const startChatButton = document.querySelector("#voiceflow-chat")
+                            .shadowRoot.querySelector("div > div.vfrc-widget--chat.c-fikloo > div > article > footer > button");
+                        if (startChatButton) {
+                            startChatButton.click();
+                            console.log("Clicked the 'Start New Chat' button.");
+                        } else {
+                            console.log("'Start New Chat' button not found.");
+                        }
+                    } catch (error) {
+                        console.error("Error finding or clicking the 'Start New Chat' button:", error);
+                    }
+                }, 3000); // 3-second delay before trying to click the "Start New Chat" button
+
+                // Try to click the second button after 5 seconds (3s delay + 2s more)
+                setTimeout(function() {
+                    try {
+                        const secondButton = document.querySelector("#voiceflow-chat")
+                            .shadowRoot.querySelector("div > div.vfrc-widget--chat.c-fikloo > div > article > main > div.vfrc-system-response.c-gSBsRr.c-gSBsRr-jjOUdr-withImage-true.c-gSBsRr-dCAjaq-scrollable-true.vfrc-system-response--message.PJLV > div.vfrc-system-response--list.c-iTxaCK > div > section:nth-child(2) > main > button");
+                        if (secondButton) {
+                            secondButton.click();
+                            console.log("Clicked the second button.");
+                        } else {
+                            console.log("Second button not found.");
+                        }
+                    } catch (error) {
+                        console.error("Error finding or clicking the second button:", error);
+                    }
+                }, 5000); // 5-second delay before trying to click the second button
+            } else {
+                console.log("Voiceflow chat not loaded yet.");
+            }
+        }
+    </script>
+
+</body>
+</html>
